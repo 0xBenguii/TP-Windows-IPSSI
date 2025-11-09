@@ -116,7 +116,7 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
 
 **Required interaction:**
 - DSRM password (Directory Services Restore Mode) at first reboot
-- Script automatically restarts 2 times
+- Script  restarts 3 times
 - Rerun the script after each reboot
 
 **Total duration: ~15-20 minutes**
@@ -136,7 +136,7 @@ Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Force
 **Required interaction:**
 - Domain credentials during domain join (Phase 2)
 - Domain credentials + DSRM password during promotion (Phase 3)
-- Script automatically restarts 3 times
+- Script restarts 3 times
 - Rerun the script after each reboot
 
 **Total duration: ~20-25 minutes**
