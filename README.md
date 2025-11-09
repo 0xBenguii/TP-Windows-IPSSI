@@ -253,9 +253,7 @@ Protection against accidental deletion enabled on all OUs.
 
 **Expected CSV format:**
 ```csv
-dn,objectClass,sAMAccountName,givenName,sn,userPrincipalName,description
-"CN=John Doe,OU=Users,OU=Managed Objects,DC=adatum,DC=fr",user,jdoe,John,Doe,jdoe@adatum.fr,Sales Representative
-"CN=Jane Smith,OU=Users,OU=Managed Objects,DC=adatum,DC=fr",user,jsmith,Jane,Smith,jsmith@adatum.fr,Accounting Personnel
+"DN","objectClass","samAccountName","userPrincipalName","displayName","l","department","title","description","telephoneNumber","company","Name","givenName","sn","physicalDeliveryOfficeName","mail"
 ```
 
 **User configuration:**
