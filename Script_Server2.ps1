@@ -1,5 +1,9 @@
 ﻿# ============================
-# Script SRV2 - DC Réplica adatum.fr PARFAIT
+# Script: Windows Server 2025 DC Deployment
+# Purpose: Automated deployment of Primary Domain Controller
+# Author:Benjamin BACLE
+# Date: 11/2025
+#Credits David Rdriguez
 # ============================
 
 $ethipaddress = '10.75.0.11' 
@@ -17,7 +21,7 @@ $disableiesecconfig = 'yes'
 # Hostname
 $computername = 'SERVERDC2'
 
-# NTP (hérite du PDC normalement, mais config si besoin)
+# NTP 
 $ntpserver1 = '0.au.pool.ntp.org'
 $ntpserver2 = '1.au.pool.ntp.org'
 
@@ -110,7 +114,7 @@ IF (!$thirdcheck) {
     Timestamp
     Write-Host "-= Phase 3: Promoting to Domain Controller =-" -ForegroundColor Cyan
     
-    # Vérification appartenance domaine
+    # Checking domain membership
     Write-Host "-= Checking domain membership... =-" -ForegroundColor Yellow
     $CurrentDomain = (Get-ComputerInfo).CsDomain
     IF ($CurrentDomain -ne $domainname) {
@@ -177,7 +181,7 @@ IF (!$fourthcheck) {
         Set-DnsServerScavenging -ScavengingState $true -ScavengingInterval 7.00:00:00 -ErrorAction Stop
         Set-DnsServerZoneAging $domainname -Aging $true -RefreshInterval 7.00:00:00 -NoRefreshInterval 7.00:00:00 -ErrorAction Stop
         
-        # Zone inversée (si elle existe déjà répliquée)
+        # Reverse zone (if trouble)
         $reversezone = '0.75.10.in-addr.arpa'
         Try {
             Set-DnsServerZoneAging $reversezone -Aging $true -RefreshInterval 7.00:00:00 -NoRefreshInterval 7.00:00:00 -ErrorAction Stop
@@ -191,7 +195,7 @@ IF (!$fourthcheck) {
         Write-Warning "Failed to configure DNS scavenging: $($_.Exception.Message)"
     }
 
-    # NTP (normalement le réplica synchronise avec le PDC, pas besoin de config manuelle)
+    # NTP ( Replica will sync with PDC automatically, but we never know)
     Write-Host "-= NTP: Replica will sync with PDC automatically =-" -ForegroundColor Green
     Add-Content $logfile "$($Timestamp) - NTP syncs with PDC (no manual config needed)"
 
